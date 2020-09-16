@@ -1,0 +1,64 @@
+需要注意的几个文件及配置：
+  src/utils/config.js
+    const apiPrefix = 'http://192.168.1.245:9016'
+    module.exports = {
+      name: '9K运营管理系统',
+      prefix: '9koms',
+      footerText: '9K运营管理系统© 2017 9K医生',
+      logo: './logo.png',
+      iconFontCSS: './iconfont.css',
+      iconFontJS: './iconfont.js',
+      YQL: ['http://www.zuimeitianqi.com'],
+      // 加入跨域
+      CORS: [
+        'http://114.55.143.174:9016',
+        'http://192.168.1.245:9016',
+        'http://query.yahooapis.com'
+      ],
+
+
+        需要特殊注意的参数：
+          const apiPrefix = 'http://192.168.1.245:9016'   --> 接口请求地址，打包时请注意区分线上环境和本地环境
+          CORS: [
+              'http://114.55.143.174:9016',
+              'http://192.168.1.245:9016',
+              'http://query.yahooapis.com'
+            ],    --> 跨域配置，请加入具体的 oms server 地址及端口号，否则  404
+
+
+  .roadhogrc.js
+
+    部分代码片段：
+          export default {
+            entry: 'src/index.js',
+            // 原始配置
+            // publicPath:'./',
+            // 修正后配置
+            publicPath:'/oms/',
+            // 打包输出到 oms 文件夹，非默认的 dist 文件夹
+            outputPath:'./oms',
+
+            需要特殊注意的参数：
+              publicPath
+              outputPath
+                具体含义请执行查阅，及查看注释说明
+
+
+
+打包：
+  执行的命令：
+    package.json
+      "scripts": {
+          "start": "roadhog server",
+          "build": "roadhog build",
+          "lint": "eslint --ext .js src test",
+          "precommit": "npm run lint"
+        }
+
+        本地测试：start
+        打包执行：build
+
+          PS：不要直接执行  npm  build ，npm xxx
+
+
+
